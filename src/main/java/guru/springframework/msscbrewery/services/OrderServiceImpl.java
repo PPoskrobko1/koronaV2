@@ -24,10 +24,31 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderNewDTO saveNewOrder(UUID id, Integer amount) {
+    public OrderNewDTO saveNewOrder(OrderNewDTO order) {
         return OrderNewDTO.builder()
                 .id(UUID.randomUUID())
                 .build();
     }
+
+//    public Order createOrder(OrderDTO order) {
+//        validate(order);
+//        Order createdOrder = new Order();
+//        createdOrder.setItems(order.getItems()
+//                .stream()
+//                .map(item -> OrderItem.builder()
+//                        .number(item.getNumber()).build())
+//                .collect(Collectors.toList()));
+//        return orderRepository.save(createdOrder);
+//    }
+//
+//    private void validate(OrderDTO order) {
+//        if(order.getItems()
+//                .stream()
+//                .filter(item -> !productService
+//                        .isProductAvailable(item.getProductCode(), item.getNumber()))
+//                .findAny().isPresent()) {
+//            throw new RuntimeException("Brak takiego produktu");
+//        }
+//    }
 
 }

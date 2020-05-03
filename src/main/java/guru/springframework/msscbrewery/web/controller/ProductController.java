@@ -31,11 +31,9 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity handlePost(@RequestParam(value = "id") UUID id, @RequestParam(value = "amount") Integer amount) {
-        OrderNewDTO savedDto = orderService.saveNewOrder(id, amount);
+        OrderNewDTO savedDto = orderService.saveNewOrder(OrderNewDTO.builder().id(id).amount(amount).build());
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/api/v1/beer"+ savedDto.getId().toString());
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
-
-
 }

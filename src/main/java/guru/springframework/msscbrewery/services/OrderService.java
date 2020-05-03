@@ -10,5 +10,5 @@ import java.util.UUID;
  */
 public interface OrderService {
     ProductDto getBeerById(UUID beerId);
-    OrderNewDTO saveNewOrder(UUID id, Integer amount);
+    OrderNewDTO saveNewOrder(OrderNewDTO order);
 }
