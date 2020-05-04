@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-/**
- * Created by jt on 2019-04-20.
- */
 @RequestMapping("/api/v1/products")
 @RestController
 public class ProductController {
@@ -30,10 +27,10 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity handlePost(@RequestParam(value = "id") UUID id, @RequestParam(value = "amount") Integer amount) {
+    public ResponseEntity handlePost(@RequestParam(value = "id") String id, @RequestParam(value = "amount") Long amount) {
         OrderNewDTO savedDto = orderService.saveNewOrder(OrderNewDTO.builder().id(id).amount(amount).build());
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "/api/v1/beer"+ savedDto.getId().toString());
+        headers.add("Location", "/api/v1/products"+ savedDto.getId().toString());
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 }

@@ -5,13 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class OrderNewDTO {
-    private UUID id;
-    private Integer amount;
+    private String id;
+    private Long amount;
 }
