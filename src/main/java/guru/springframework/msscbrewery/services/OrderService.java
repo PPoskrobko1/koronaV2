@@ -7,6 +7,6 @@ import java.util.UUID;
 
 public interface OrderService {
     ProductDto getBeerById(UUID beerId);
-    OrderNewDTO saveNewOrder(OrderNewDTO order);
+    OrderNewDTO saveNewOrder(OrderNewDTO order) throws Exception;
 
 }

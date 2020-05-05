@@ -6,9 +6,7 @@ import guru.springframework.msscbrewery.web.model.OrderNewDTO;
 import guru.springframework.msscbrewery.web.model.ProductDto;
 import org.springframework.stereotype.Service;
 
-import java.util.SimpleTimeZone;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -27,23 +25,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderNewDTO saveNewOrder(OrderNewDTO order) {
+    public OrderNewDTO saveNewOrder(OrderNewDTO order) throws Exception{
         validate(order);
         return OrderNewDTO.builder()
-                .id("test")
+                .id(order.getId())
                 .build();
     }
 
-        public void validate(OrderNewDTO order) {
+        public void validate(OrderNewDTO order) throws Exception{
         boolean test = new ProductService().isProductAvailable(order.getId(), order.getAmount());
-        if(test == true) {
-            System.out.println("ok");
-        }
-        else if (test == false) {
-            throw new RuntimeException("Wrong order amount");
-        }
-        else {
-            throw new RuntimeException("Bad request");
+        if(test == false) {
+            throw new Exception("aaa");
         }
     }
 
