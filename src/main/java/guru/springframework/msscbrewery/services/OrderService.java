@@ -1,12 +1,9 @@
 package guru.springframework.msscbrewery.services;
 
-import guru.springframework.msscbrewery.web.model.OrderNewDTO;
-import guru.springframework.msscbrewery.web.model.ProductDto;
-
-import java.util.UUID;
+import guru.springframework.msscbrewery.model.Order;
+import guru.springframework.msscbrewery.web.dto.OrderDTO;
 
 public interface OrderService {
-    ProductDto getBeerById(UUID beerId);
-    OrderNewDTO saveNewOrder(OrderNewDTO order) throws Exception;
-
+    OrderDTO createOrder(OrderDTO order);
+    OrderDTO saveOrder(Order order);
 }

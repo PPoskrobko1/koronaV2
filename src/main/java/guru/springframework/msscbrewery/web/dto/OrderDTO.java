@@ -1,4 +1,4 @@
-package guru.springframework.msscbrewery.web.model;
+package guru.springframework.msscbrewery.web.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OrderNewDTO {
+public class OrderDTO {
     private String id;
     private Long amount;
 }
