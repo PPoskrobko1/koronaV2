@@ -1,4 +1,4 @@
-package guru.springframework.msscbrewery.model;
+package pp.springframework.koronaZadanie.model;
 
 import lombok.Builder;
 import lombok.Data;

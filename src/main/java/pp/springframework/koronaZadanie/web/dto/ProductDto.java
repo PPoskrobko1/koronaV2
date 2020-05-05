@@ -1,4 +1,4 @@
-package guru.springframework.msscbrewery.web.dto;
+package pp.springframework.koronaZadanie.web.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,7 +1,6 @@
-package guru.springframework.msscbrewery.pc;
+package pp.springframework.koronaZadanie.pc;
 
-import guru.springframework.msscbrewery.model.Order;
-import guru.springframework.msscbrewery.web.dto.ProductDto;
+import pp.springframework.koronaZadanie.web.dto.ProductDto;
 
 import java.util.Map;
 import java.util.UUID;

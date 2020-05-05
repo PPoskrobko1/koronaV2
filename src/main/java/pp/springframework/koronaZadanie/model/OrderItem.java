@@ -1,9 +1,11 @@
-package guru.springframework.msscbrewery.model;
+package pp.springframework.koronaZadanie.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class Order {
+@Builder
+public class OrderItem {
     private String id;
     private Product product;
     private long number;

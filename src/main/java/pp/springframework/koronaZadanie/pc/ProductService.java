@@ -1,4 +1,4 @@
-package guru.springframework.msscbrewery.pc;
+package pp.springframework.koronaZadanie.pc;
 
 public class ProductService {
 

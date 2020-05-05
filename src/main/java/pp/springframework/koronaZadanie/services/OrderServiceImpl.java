@@ -1,10 +1,9 @@
-package guru.springframework.msscbrewery.services;
+package pp.springframework.koronaZadanie.services;
 
-import guru.springframework.msscbrewery.model.Order;
-import guru.springframework.msscbrewery.pc.ProductService;
-import guru.springframework.msscbrewery.web.dto.OrderDTO;
+import pp.springframework.koronaZadanie.model.Order;
+import pp.springframework.koronaZadanie.pc.ProductService;
+import pp.springframework.koronaZadanie.web.dto.OrderDTO;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 
 @Service
 public class OrderServiceImpl implements OrderService {

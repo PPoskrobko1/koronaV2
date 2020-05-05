@@ -1,7 +1,7 @@
-package guru.springframework.msscbrewery.web.controller;
+package pp.springframework.koronaZadanie.web.controller;
 
-import guru.springframework.msscbrewery.services.OrderService;
-import guru.springframework.msscbrewery.web.dto.OrderDTO;
+import pp.springframework.koronaZadanie.services.OrderService;
+import pp.springframework.koronaZadanie.web.dto.OrderDTO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
