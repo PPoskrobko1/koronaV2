@@ -9,5 +9,4 @@ import java.util.UUID;
 public interface ProductRepository {
     Map<String, Integer> availableProducts();
     ProductDto getBeerById(UUID beerId);
-    //Order save(Order order);
 }

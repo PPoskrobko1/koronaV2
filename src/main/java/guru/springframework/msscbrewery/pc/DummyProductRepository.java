@@ -24,5 +24,4 @@ public class DummyProductRepository implements ProductRepository {
                 .subCategory("vegetables")
                 .build();
     }
-
 }

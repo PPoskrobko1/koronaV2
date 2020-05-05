@@ -24,14 +24,14 @@ public class ProductController {
 //    }
 
     @PostMapping
-    public ResponseEntity handlePost(@RequestParam(value = "id") String id, @RequestParam(value = "amount") Long amount) throws Exception {
-        if(amount > 0) {
+    public ResponseEntity handlePost(@RequestParam(value = "id") String id, @RequestParam(value = "amount") Long amount) {
+        HttpHeaders headers = new HttpHeaders();
+        try {
             OrderDTO savedDto = orderService.createOrder(OrderDTO.builder().id(id).amount(amount).build());
-            HttpHeaders headers = new HttpHeaders();
             headers.add("Location", "/api/v1/products" + savedDto.getId().toString());
             return new ResponseEntity(headers, HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity(headers, HttpStatus.BAD_REQUEST);
         }
     }
 }

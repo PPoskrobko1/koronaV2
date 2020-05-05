@@ -8,15 +8,21 @@ public class ProductService {
     private ProductRepository productRepository = new DummyProductRepository();
 
     public boolean isProductAvailable(String productCode, Long number) {
-        return productRepository.availableProducts().get(productCode) >= number;
-    }
-
-    public ResponseEntity<Object> checkProduct(String productCode) {
-        if (!productRepository.availableProducts().containsKey(productCode)) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (productRepository.availableProducts().containsKey(productCode)
+                && productRepository.availableProducts().get(productCode) >= number) {
+            return true;
         }
         else {
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            return false;
         }
     }
+//    public boolean isProductAvailable(String productCode, Long number) {
+//        if (productRepository.availableProducts().containsKey(productCode)
+//        && productRepository.availableProducts().get(productCode) >= number) {
+//            return true;
+//        }
+//        else {
+//            return false;
+//        }
+//    }
 }
