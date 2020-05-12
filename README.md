@@ -14,7 +14,7 @@ Udostępnia usługi:
 		1. Courier-Way-Service wyznaczy trasę
 		1. Trasę wyznaczoną przez Courier-Way-Service, należy zapisać w Delivery-Service zapisuje w bazie w postaci:
 			  * Delivery odpowiada zamówieniu
-			  * Delivery zawiera listę OrderItem, wraz z waypointNo (gdzie waypointNo numer wskazuje na kolejnośći obsługi danego OrderItem w ramach Delivery)
+			  * Delivery zawiera listę OrderItem, wraz z waypointNo (gdzie waypointNo numer wskazuje na kolejnośći obsługi danego OrderItem w ramach Delivery) oraz Długość Trasy
 				* w odpowiedzi zwracane jest deliveryID
         * deliveryId zapisywane jest na zamówieniu
 		1. DeliveryId powinno zostać przekazane do Courier-Service w celu przypisania przesyłki dla kuriera
@@ -42,5 +42,8 @@ Udostępnia usługi:
 1. Delivery-Service master informacji o Delivery
    Udostępnia usługi:
     * Utwórz Delivery
-      * na wejściu lista OrderItem wraz z warehouseId
+      * na wejściu lista OrderItem wraz z warehouseId i waypointNo oraz Długość Trasy
       * na wyjściu DeliveryId
+    * Zwróć Delivery po DeliveryId
+    	* Na wejściu DeliveryID
+	* Na wyjściu Długośc trasy
