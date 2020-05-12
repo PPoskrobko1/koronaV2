@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/api/v1/products")
+@RequestMapping("/api/v1/order/")
 @RestController
 public class ProductController {
 
@@ -17,21 +17,20 @@ public class ProductController {
         this.orderService = orderService;
     }
 
-//    @GetMapping({"/{productId}"})
-//    public ResponseEntity<ProductDto> getProducts(@PathVariable("productId") UUID productId){
-//
-//        return new ResponseEntity<>(orderService.getBeerById(productId), HttpStatus.OK);
-//    }
-
     @PostMapping
-    public ResponseEntity handlePost(@RequestParam(value = "id") String id, @RequestParam(value = "amount") Long amount) {
+    public ResponseEntity handlePost(@RequestBody OrderDTO orderDTO) {
         HttpHeaders headers = new HttpHeaders();
         try {
-            OrderDTO savedDto = orderService.createOrder(OrderDTO.builder().id(id).amount(amount).build());
-            headers.add("Location", "/api/v1/products" + savedDto.getId().toString());
+            OrderDTO savedDto = orderService.createOrder(orderDTO);
             return new ResponseEntity(headers, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity(headers, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping(path = "/{orderId}")
+    public ResponseEntity sendOrder(@PathVariable("orderId") String orderId) {
+        this.orderService.send(orderId);
+        return ResponseEntity.ok("");
     }
 }
