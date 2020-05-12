@@ -40,7 +40,7 @@ Udostępnia usługi:
       * na informacja o Delivery zostanie pobrana z Delivery-Service
     * zwróci kolejkę zadań dla kurier
 1. Delivery-Service master informacji o Delivery
-  * Udostępnia usługi:
+   Udostępnia usługi:
     * Utwórz Delivery
       * na wejściu lista OrderItem wraz z warehouseId
       * na wyjściu DeliveryId
