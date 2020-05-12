@@ -27,6 +27,20 @@ Udostępnia usługi:
       * Na wejściu warehouseID
       * Na wyjściu GeoLocation magazynu
 1. Courier-Way-Service zwróci trasę dla wskazanego zamówią
-1. dodanie nowej trasy dla kurier
-  * zwróci kolejkę zadań dla kurier
-1. Delivery-Service musi zwracać Delivery po DeliveryId
+   Udostępnia usługi:
+     * Wyznacz trasę:
+       * Na podstawie warehouseId powinno nastąpić odpytanie Warehouse-Service o GeoLocation magazynu
+       * Do zaimplementowania jakiś prosty algorytm wyznaczający Długość Trasy (może ilość magazynów?)
+       * Na wejściu lista OrderItem wraz z warehouseId 
+       * Na wyjściu lista OrderItem, dla każdego itemu wyznaczony jest waypointNo oraz wyznaczona Długość Trasy     
+1. Courier-Service dodanie nowej trasy dla kurier
+  Udostępnia usługi:
+    * przypisz przesyłkę (Delivery) do kuriera
+      * na wejściu DeliveryId
+      * na informacja o Delivery zostanie pobrana z Delivery-Service
+    * zwróci kolejkę zadań dla kurier
+1. Delivery-Service master informacji o Delivery
+  * Udostępnia usługi:
+    * Utwórz Delivery
+      * na wejściu lista OrderItem wraz z warehouseId
+      * na wyjściu DeliveryId
