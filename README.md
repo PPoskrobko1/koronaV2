@@ -1,4 +1,4 @@
-1. https://github.com/PPoskrobko1/koronaV2- Order-Service - MS z zadania 1
+1. https://github.com/PPoskrobko1/koronaV2 - Order-Service - MS z zadania 1
 1. https://github.com/monichimiuk/korona - Warehouse-Service - MS z zadania 3
 1. https://github.com/tooomor/online-store-delivery - Courier-Way-Service MS z zadania 4
 1. https://github.com/Smoke-0/order-delivery - Courier-Service - MS z zadania 5
