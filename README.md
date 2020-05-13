@@ -7,6 +7,7 @@
 1. Order-Service - usługa pełni rolę mastera informacji o zamówienia
 Udostępnia usługi:
 	* zapisz zamówienie
+		* na wejściu OderItems + adres 
 	* udostępnij informacje o zamówieniu
 	* przekaż zamówienie do realizacji
 		1. Odpytanie odpytamy Warehouse-Service o magazyny, w których dostępne są produkty z zamówienia
@@ -31,7 +32,7 @@ Udostępnia usługi:
      * Wyznacz trasę:
        * Na podstawie warehouseId powinno nastąpić odpytanie Warehouse-Service o GeoLocation magazynu
        * Do zaimplementowania jakiś prosty algorytm wyznaczający Długość Trasy (może ilość magazynów?)
-       * Na wejściu lista OrderItem wraz z warehouseId 
+       * Na wejściu lista OrderItem wraz z warehouseId  oraz adres (ulica, numer budynku, kod pocztowy)
        * Na wyjściu lista OrderItem, dla każdego itemu wyznaczony jest waypointNo oraz wyznaczona Długość Trasy     
 1. Courier-Service dodanie nowej trasy dla kurier
   Udostępnia usługi:
