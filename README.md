@@ -10,7 +10,7 @@ Udostępnia usługi:
 		* na wejściu OderItems + adres 
 	* udostępnij informacje o zamówieniu
 	* przekaż zamówienie do realizacji
-		1. Odpytanie odpytamy Warehouse-Service o magazyny, w których dostępne są produkty z zamówienia
+		1. Odpytanie odpytamy Warehouse-Service o magazyny, w których dostępne są produkty z zamówienia + adres miejsca docelowego
 	  1. Przekazanie zamówienia wraz z wyznaczonymi magazynami do Courier-Way-Service (każdy orderItem ma przypisany warehouseId  + adres miejsca docelowego)
 		1. Courier-Way-Service wyznaczy trasę
 		1. Trasę wyznaczoną przez Courier-Way-Service, należy zapisać w Delivery-Service zapisuje w bazie w postaci:
@@ -22,7 +22,7 @@ Udostępnia usługi:
 1. Warehouse-Service zwróci listę magazynów dla pozycji zamówienia
   Udostępnia usługi:
     * Wyznacz trasę
-      * Na wejściu lista OrderItem
+      * Na wejściu lista OrderItem oraz adres miejsca doceloweg
       * Na wyjściu lista OrderItem, ze wskazanymi WarehouseId
     * Zwróć informacje o magazynie
       * Na wejściu warehouseID
