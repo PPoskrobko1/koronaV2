@@ -6,5 +6,6 @@ import lombok.Data;
 @Data @Builder
 public class OrderItemDTO {
     private String productCode;
-    private Long number;
+    private Integer number;
+    private String warehouseId;
 }

@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class OrderDTO {
 
-    private String orderId;
+    private Integer orderId;
     private List<OrderItemDTO> items;
 }
