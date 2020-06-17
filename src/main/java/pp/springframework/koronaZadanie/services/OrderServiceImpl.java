@@ -1,9 +1,13 @@
 package pp.springframework.koronaZadanie.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import pp.springframework.koronaZadanie.model.Order;
+import pp.springframework.koronaZadanie.model.OrderItem;
+import pp.springframework.koronaZadanie.model.OrderRepository;
+import pp.springframework.koronaZadanie.model.Product;
 import pp.springframework.koronaZadanie.pc.ProductService;
 import pp.springframework.koronaZadanie.warehouse.dto.OrderItemDTO;
 import pp.springframework.koronaZadanie.warehouse.service.WarehouseService;
@@ -21,23 +25,31 @@ public class OrderServiceImpl implements OrderService {
     private WarehouseService warehouseService;
     private ProductService productService;
 
+    private OrderRepository orderRepository;
+
     @Override
     public OrderDTO createOrder(OrderDTO order) throws Exception {
         validate(order);
-        Order savedOrder = new Order();
-        //TODO zaimplementować transform and save
-        return saveOrder(savedOrder);
+        Order savedOrder = Order.builder()
+                .items(order.getItems().stream()
+                    .map(i -> OrderItem.builder()
+                        .number(i.getNumber())
+                        .product(Product.builder().id(i.getProductCode()).build())
+                        .build()).collect(Collectors.toList()))
+                .build();
+        return saveOrder(orderRepository.save(savedOrder));
     }
 
     @Override
     public OrderDTO saveOrder(Order order) {
-        return OrderDTO.builder().orderId(order.getId()).build();
+        return OrderDTO.builder()
+                .orderId(order.getId()).build();
     }
 
     @Override
     public void send(String orderId) {
         Order order = null;//from repository
-        List<OrderItemDTO> items = order.getItems().stream()
+        List<pp.springframework.koronaZadanie.warehouse.dto.OrderDTO> items = order.getItems().stream()
                 .map(i -> OrderItemDTO.builder()
                         .productCode(i.getProduct().getId())
                         .number(i.getNumber())
@@ -49,9 +61,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public void validate(OrderDTO order) throws Exception {
-        //TODO poprawić validacke
-        boolean check = productService.isProductAvailable(order.getId(), order.getAmount());
-        if (order.getAmount() <= 0 || !check) {
+        List<Boolean> check = new ArrayList<>();
+        order.getItems().forEach(item -> {
+            if (item.getNumber() <= 0)
+                check.add(false);
+            else
+                check.add(productService.isProductAvailable(item.getProductCode(), item.getNumber()));
+        });
+        if (check.contains(false)) {
             throw new Exception();
         }
     }
