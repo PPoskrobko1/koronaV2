@@ -10,10 +10,10 @@
 	</parent>
 
 	<groupId>guru.springframework</groupId>
-	<artifactId>mssc-brewery</artifactId>
+	<artifactId>order-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mssc-brewery</name>
-	<description>SFG Brewery</description>
+	<description>Order Servis</description>
 
 	<properties>
 		<java.version>11</java.version>
