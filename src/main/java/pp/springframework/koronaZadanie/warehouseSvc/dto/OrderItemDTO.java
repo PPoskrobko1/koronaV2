@@ -1,4 +1,4 @@
-package pp.springframework.koronaZadanie.warehouse.dto;
+package pp.springframework.koronaZadanie.warehouseSvc.dto;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package pp.springframework.koronaZadanie.warehouse.dto;
+package pp.springframework.koronaZadanie.warehouseSvc.dto;
 
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +14,7 @@ public class OrderDTO {
     private List<OrderItemDTO> orderItem;
 
     @Data
+    @Builder
     public class Location {
         private Integer x;
         private Integer y;

@@ -11,7 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Data
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -21,6 +21,9 @@ public class Order {
     @GeneratedValue(generator = "inc_orders")
     @GenericGenerator(name = "inc_orders", strategy = "increment")
     private Integer id;
+
+    private Integer pointX;
+    private Integer pointY;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderItem> items;

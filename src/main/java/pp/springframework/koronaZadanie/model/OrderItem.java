@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -23,11 +24,9 @@ public class OrderItem {
     private Integer id;
 
     @NotNull
-    @OneToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    private Product product;
-
-    private long number;
+    private String productCode;
+    private Integer quantity;
+    private String warehouseCode;
 
     @NotNull
     @ManyToOne
