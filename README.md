@@ -2,6 +2,7 @@
 1. https://github.com/monichimiuk/korona - Warehouse-Service - MS z zadania 3
 1. https://github.com/tooomor/online-store-delivery - Courier-Way-Service MS z zadania 4
 1. https://github.com/Smoke-0/order-delivery - Courier-Service - MS z zadania 5
+1. https://github.com/swistoww/korona - Delivery-Service
 
 # Odpowiedzialności
 1. Order-Service - usługa pełni rolę mastera informacji o zamówienia
