@@ -2,10 +2,7 @@ package pp.springframework.koronaZadanie.web.dto;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
@@ -14,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class OrderDTO {
 
     private LocationDTO location;
+    @Singular
     private List<OrderItemDTO> items;
 
 }

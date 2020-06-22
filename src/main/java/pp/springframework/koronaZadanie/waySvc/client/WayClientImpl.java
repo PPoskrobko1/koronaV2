@@ -4,12 +4,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import pp.springframework.koronaZadanie.waySvc.dto.OrderDTO;
 
 @ConfigurationProperties(prefix = "way.svc", ignoreUnknownFields = false)
-@Service
+@Component
 public class WayClientImpl implements WayClient {
 
     private final String WAY_SVC_PATH_V1 = "/store/v1/delivery";

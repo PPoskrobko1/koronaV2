@@ -9,15 +9,6 @@ import java.util.List;
 @Builder
 public class OrderDTO {
 
-    private Location location;
-
+    private LocationDTO location;
     private List<OrderItemDTO> orderItem;
-
-    @Data
-    @Builder
-    public class Location {
-        private Integer x;
-        private Integer y;
-    }
-
 }

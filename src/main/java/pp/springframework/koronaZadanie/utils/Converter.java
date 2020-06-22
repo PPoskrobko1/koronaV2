@@ -1,5 +1,6 @@
 package pp.springframework.koronaZadanie.utils;
 
+import org.springframework.stereotype.Component;
 import pp.springframework.koronaZadanie.model.Order;
 import pp.springframework.koronaZadanie.web.dto.OrderDTO;
 
