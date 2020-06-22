@@ -1,6 +1,9 @@
 package pp.springframework.koronaZadanie.services;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
@@ -37,18 +40,27 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDTO createOrder(OrderDTO order) throws Exception {
+        //todo converter per model/dto
         Order orderEntity = converter.convertWebOrderDtoToEntity(order);
         orderRepository.save(orderEntity);
 
 //        Ask for nearest warehouses with required products quantity
         OrderResDTO whOrderRes = warehouseClient.getWarehouses(converter.convertEntityToWhSvcOrderDto(orderEntity));
-        orderEntity.toBuilder().items(whOrderRes.getOrderItem().stream().map(i -> OrderItem.builder()
-                .productCode(i.getProductCode())
-                .quantity(i.getNumber())
-                .warehouseCode(i.getWarehouseId()).build()).collect(Collectors.toList()));
+        //todo walidacje gdy warehouse jest pusty
+        log.info("Warehouse orderResponse: " + whOrderRes.toString());
+        //todo zamnkąć w jednej funckji
+        Map<Integer, OrderItemDTO> orderItemDTOMap = whOrderRes.getOrderItem()
+                .stream()
+                .collect(Collectors.toMap(i -> i.getId(), Function.identity()));
+        orderEntity.getItems().forEach(i -> {
+            i.setWarehouseCode(Optional.ofNullable(orderItemDTOMap.get(i.getId())).orElseThrow().getWarehouseId());
+        });
 
 //        Calculate optimal route
-//        wayClient.findOptimalRoute(converter.convertEntityToWaySvcOrderDto(orderEntity));
+        //todo wraper na metody w "modelu"
+        wayClient.findOptimalRoute(converter.convertEntityToWaySvcOrderDto(orderEntity));
+        //todo zapisac zmiany w bazie
+
         return null;
     }
 

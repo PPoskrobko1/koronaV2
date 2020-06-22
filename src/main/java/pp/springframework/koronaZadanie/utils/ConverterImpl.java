@@ -34,6 +34,7 @@ public class ConverterImpl implements Converter {
                         .x(order.getPointX())
                         .y(order.getPointY()).build())
                 .orderItem(order.getItems().stream().map(i -> OrderItemDTO.builder()
+                        .id(i.getId())
                         .productCode(i.getProductCode())
                         .number(i.getQuantity())
                         .build()).collect(Collectors.toList())).build();
