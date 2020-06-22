@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class LocationDTO {
 
-    private Integer x;
-    private Integer y;
+    private Long pointX;
+    private Long pointY;
 }

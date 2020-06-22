@@ -3,7 +3,6 @@ package pp.springframework.koronaZadanie.utils;
 import org.springframework.stereotype.Component;
 import pp.springframework.koronaZadanie.model.Order;
 import pp.springframework.koronaZadanie.model.OrderItem;
-import pp.springframework.koronaZadanie.warehouseSvc.dto.LocationDTO;
 import pp.springframework.koronaZadanie.warehouseSvc.dto.OrderItemDTO;
 import pp.springframework.koronaZadanie.waySvc.dto.WarehouseDTO;
 import pp.springframework.koronaZadanie.web.dto.OrderDTO;
@@ -43,9 +42,9 @@ public class ConverterImpl implements Converter {
     @Override
     public pp.springframework.koronaZadanie.waySvc.dto.OrderDTO convertEntityToWaySvcOrderDto(Order order) {
         return pp.springframework.koronaZadanie.waySvc.dto.OrderDTO.builder()
-                .location(pp.springframework.koronaZadanie.waySvc.dto.LocationDTO.builder()
-                        .x(order.getPointX())
-                        .y(order.getPointY()).build())
+                .geolocation(pp.springframework.koronaZadanie.waySvc.dto.LocationDTO.builder()
+                        .pointX(Long.valueOf(order.getPointX()))
+                        .pointY(Long.valueOf(order.getPointY())).build())
                 .orderItems(order.getItems().stream().map(i -> pp.springframework.koronaZadanie.waySvc.dto.OrderItemDTO.builder()
                         .orderNumber(i.getId().toString())
                         .warehouse(WarehouseDTO.builder()

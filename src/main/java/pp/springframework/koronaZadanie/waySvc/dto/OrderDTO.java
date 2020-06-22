@@ -14,7 +14,7 @@ import java.util.List;
 public class OrderDTO {
 
     private String orderNumber;
-    private LocationDTO location;
+    private LocationDTO geolocation;
     private List<OrderItemDTO> orderItems;
 
 }
