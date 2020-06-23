@@ -1,16 +1,15 @@
 package pp.springframework.koronaZadanie.services;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import pp.springframework.koronaZadanie.courierSvc.client.CourierClient;
+import pp.springframework.koronaZadanie.deliverySvc.client.DeliveryClient;
+import pp.springframework.koronaZadanie.deliverySvc.dto.DeliveryDto;
 import pp.springframework.koronaZadanie.model.Order;
-import pp.springframework.koronaZadanie.model.OrderItem;
 import pp.springframework.koronaZadanie.model.OrderRepository;
 import pp.springframework.koronaZadanie.utils.Converter;
 import pp.springframework.koronaZadanie.warehouseSvc.dto.OrderItemDTO;
@@ -24,44 +23,77 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class OrderServiceImpl implements OrderService {
 
-    public OrderServiceImpl(WarehouseClient warehouseClient,
-                            Converter converter,
-                            WayClient wayClient, OrderRepository orderRepository) {
-        this.warehouseClient = warehouseClient;
-        this.converter = converter;
-        this.wayClient = wayClient;
-        this.orderRepository = orderRepository;
-    }
-
-    private Converter converter;
-    private WarehouseClient warehouseClient;
-    private WayClient wayClient;
     private OrderRepository orderRepository;
 
+    private Converter converter;
+
+    private WarehouseClient warehouseClient;
+    private DeliveryClient deliveryClient;
+    private WayClient wayClient;
+    private CourierClient courierClient;
+
+    public OrderServiceImpl(OrderRepository orderRepository,
+                            Converter converter,
+                            WarehouseClient warehouseClient,
+                            DeliveryClient deliveryClient,
+                            WayClient wayClient,
+                            CourierClient courierClient) {
+        this.orderRepository = orderRepository;
+        this.converter = converter;
+        this.warehouseClient = warehouseClient;
+        this.deliveryClient = deliveryClient;
+        this.wayClient = wayClient;
+        this.courierClient = courierClient;
+    }
+
     @Override
-    public OrderDTO createOrder(OrderDTO order) throws Exception {
+    public void createOrder(OrderDTO order) throws Exception {
         //todo converter per model/dto
         Order orderEntity = converter.convertWebOrderDtoToEntity(order);
         orderRepository.save(orderEntity);
 
 //        Ask for nearest warehouses with required products quantity
-        OrderResDTO whOrderRes = warehouseClient.getWarehouses(converter.convertEntityToWhSvcOrderDto(orderEntity));
-        //todo walidacje gdy warehouse jest pusty
-        log.info("Warehouse orderResponse: " + whOrderRes.toString());
-        //todo zamnkąć w jednej funckji
-        Map<Integer, OrderItemDTO> orderItemDTOMap = whOrderRes.getOrderItem()
-                .stream()
-                .collect(Collectors.toMap(i -> i.getId(), Function.identity()));
-        orderEntity.getItems().forEach(i -> {
-            i.setWarehouseCode(Optional.ofNullable(orderItemDTOMap.get(i.getId())).orElseThrow().getWarehouseId());
-        });
+        orderEntity = getWarehousesAndUpdate(orderEntity);
 
 //        Calculate optimal route
-        //todo wraper na metody w "modelu"
-        wayClient.findOptimalRoute(converter.convertEntityToWaySvcOrderDto(orderEntity));
-        //todo zapisac zmiany w bazie
+        orderEntity = calculateRouteAndSaveDelivery(orderEntity);
 
-        return null;
+//        Add courier to order
+        calculateCourierAndSave(orderEntity);
+    }
+
+    private Order getWarehousesAndUpdate(Order order) {
+        OrderResDTO whOrderRes = warehouseClient.getWarehouses(converter.convertEntityToWhSvcOrderDto(order));
+        Map<Integer, OrderItemDTO> itemDTOMap = whOrderRes.getOrderItem().stream()
+                .collect(Collectors.toMap(OrderItemDTO::getId, Function.identity()));
+        order.getItems().forEach(item -> {
+            item.setWarehouseCode(Optional.ofNullable(itemDTOMap.get(item.getId())).orElseThrow(() -> {
+                log.error("Not enough produts in warehouses");
+                throw new RuntimeException();
+            }).getWarehouseId());
+        });
+        return orderRepository.save(order);
+    }
+
+    private Order calculateRouteAndSaveDelivery(Order order) {
+        pp.springframework.koronaZadanie.waySvc.dto.OrderDTO wayOrderDTO = wayClient.calculateOptimalRoute(converter.convertEntityToWaySvcOrderDto(order));
+        Map<String, Integer> map = wayOrderDTO.getOrderItems().stream().collect(Collectors.toMap(pp.springframework.koronaZadanie.waySvc.dto.OrderItemDTO::getOrderNumber,
+                pp.springframework.koronaZadanie.waySvc.dto.OrderItemDTO::getWaypointNo));
+        DeliveryDto deliveryDto = DeliveryDto.builder()
+                .items(order.getItems().stream()
+                        .map(i -> pp.springframework.koronaZadanie.deliverySvc.dto.OrderItemDto.builder()
+                                .productId(i.getProductCode())
+                                .quantity(i.getQuantity())
+                                .warehouseId(i.getWarehouseCode())
+                                .waypointNo(map.get(i.getId()))
+                                .build()).collect(Collectors.toList())).build();
+        order.setDeliveryId(deliveryClient.saveDelivery(deliveryDto));
+        return orderRepository.save(order);
+    }
+
+    private Order calculateCourierAndSave(Order order) {
+        order.setCourierId(courierClient.calculateCourier(order.getDeliveryId()));
+        return orderRepository.save(order);
     }
 
 }

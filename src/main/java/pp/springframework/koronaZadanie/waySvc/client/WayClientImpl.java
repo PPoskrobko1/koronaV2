@@ -5,7 +5,6 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import pp.springframework.koronaZadanie.waySvc.dto.OrderDTO;
 
@@ -23,7 +22,7 @@ public class WayClientImpl implements WayClient {
     }
 
     @Override
-    public OrderDTO findOptimalRoute(OrderDTO order) {
+    public OrderDTO calculateOptimalRoute(OrderDTO order) {
 
         HttpEntity<OrderDTO> request = new HttpEntity<>(order);
         ResponseEntity<OrderDTO> response = restTemplate.postForEntity(

@@ -1,8 +1,10 @@
 create table ORDERS
 (
-    id      int primary key auto_increment,
-    point_x int not null,
-    point_y int not null
+    id          int primary key auto_increment,
+    delivery_id int,
+    courier_id int,
+    point_x     int not null,
+    point_y     int not null
 );
 
 create table ITEMS
@@ -13,6 +15,6 @@ create table ITEMS
     warehouse_code varchar(30),
     order_id       int,
     primary key (id),
-    foreign key (order_id) references ORDERS(id)
+    foreign key (order_id) references ORDERS (id)
 
 );

@@ -25,6 +25,10 @@ public class Order {
     @GenericGenerator(name = "inc_orders", strategy = "increment")
     private Integer id;
 
+    @Column(name = "delivery_id")
+    private Integer deliveryId;
+    @Column(name = "courier_id")
+    private Integer courierId;
     @Column(name = "point_x")
     private Integer pointX;
     @Column(name = "point_y")

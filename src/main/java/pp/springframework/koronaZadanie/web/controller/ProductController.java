@@ -24,7 +24,7 @@ public class ProductController {
         HttpHeaders headers = new HttpHeaders();
         orderService.createOrder(orderDTO);
         try {
-            OrderDTO savedDto = orderService.createOrder(orderDTO);
+            orderService.createOrder(orderDTO);
             return new ResponseEntity(headers, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity(headers, HttpStatus.BAD_REQUEST);
