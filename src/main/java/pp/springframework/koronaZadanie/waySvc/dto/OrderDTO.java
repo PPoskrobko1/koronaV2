@@ -16,5 +16,6 @@ public class OrderDTO {
     private String orderNumber;
     private LocationDTO geolocation;
     private List<OrderItemDTO> orderItems;
+    private Integer routeLength;
 
 }

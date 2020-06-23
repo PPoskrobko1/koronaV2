@@ -80,6 +80,7 @@ public class OrderServiceImpl implements OrderService {
         Map<String, Integer> map = wayOrderDTO.getOrderItems().stream().collect(Collectors.toMap(pp.springframework.koronaZadanie.waySvc.dto.OrderItemDTO::getOrderNumber,
                 pp.springframework.koronaZadanie.waySvc.dto.OrderItemDTO::getWaypointNo));
         DeliveryDto deliveryDto = DeliveryDto.builder()
+                .routeLength(wayOrderDTO.getRouteLength())
                 .items(order.getItems().stream()
                         .map(i -> pp.springframework.koronaZadanie.deliverySvc.dto.OrderItemDto.builder()
                                 .productId(i.getProductCode())
